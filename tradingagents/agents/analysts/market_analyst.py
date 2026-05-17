@@ -35,6 +35,13 @@ MACD Related:
 Momentum Indicators:
 - rsi: RSI: Measures momentum to flag overbought/oversold conditions. Usage: Apply 70/30 thresholds and watch for divergence to signal reversals. Tips: In strong trends, RSI may remain extreme; always cross-check with trend analysis.
 
+Mean Reversion Indicators:
+- rsi: RSI: Use oversold/overbought readings and divergence to test whether price is stretched enough for a snapback setup. Treat RSI extremes as weaker mean-reversion evidence when the broader trend is very strong.
+- mfi: MFI: Use volume-confirmed overbought/oversold pressure to validate or reject a mean-reversion setup, especially when price is near a Bollinger band extreme.
+- boll, boll_ub, boll_lb: Bollinger Bands: Use closes near or outside the upper/lower band to identify stretched prices that may revert toward the middle band. Confirm with momentum decay, volume, and support/resistance before calling a reversal.
+- close_50_sma, close_10_ema: Moving average distance: Compare current price against short- and medium-term averages to judge whether price is extended from its recent baseline.
+- atr: ATR: Use volatility to decide whether the stretched move is normal noise or an unusually large displacement, and to set invalidation levels.
+
 Volatility Indicators:
 - boll: Bollinger Middle: A 20 SMA serving as the basis for Bollinger Bands. Usage: Acts as a dynamic benchmark for price movement. Tips: Combine with the upper and lower bands to effectively spot breakouts or reversals.
 - boll_ub: Bollinger Upper Band: Typically 2 standard deviations above the middle line. Usage: Signals potential overbought conditions and breakout zones. Tips: Confirm signals with other tools; prices may ride the band in strong trends.
@@ -43,8 +50,16 @@ Volatility Indicators:
 
 Volume-Based Indicators:
 - vwma: VWMA: A moving average weighted by volume. Usage: Confirm trends by integrating price action with volume data. Tips: Watch for skewed results from volume spikes; use in combination with other volume analyses.
+- mfi: MFI: Combines price and volume to measure buying/selling pressure. Usage: Identify overbought (>80) or oversold (<20) conditions and confirm whether reversals have volume support. Tips: Compare with RSI and Bollinger Bands before relying on a contrarian signal.
 
-- Select indicators that provide diverse and complementary information. Avoid redundancy (e.g., do not select both rsi and stochrsi). Also briefly explain why they are suitable for the given market context. When you tool call, please use the exact name of the indicators provided above as they are defined parameters, otherwise your call will fail. Please make sure to call get_stock_data first to retrieve the CSV that is needed to generate indicators. Then use get_indicators with the specific indicator names. Write a very detailed and nuanced report of the trends you observe. Provide specific, actionable insights with supporting evidence to help traders make informed decisions."""
+Strategy Lenses:
+- Trend-following: Look for aligned moving averages, MACD confirmation, persistent volume support, and pullback opportunities that preserve the larger trend.
+- Mean reversion: Look for price stretch versus moving averages or Bollinger bands, RSI/MFI exhaustion, a plausible reversion target, and a clear invalidation level.
+- Breakout / volatility expansion: Look for compression followed by closes outside a range or Bollinger band, rising ATR, expanding volume, and failed-breakout risk.
+- Relative strength: Compare the instrument's recent price behavior against SPY over the same window. Favor long ideas when the instrument is outperforming a weak or neutral benchmark; treat underperformance as a warning even when the absolute chart looks constructive.
+- Market regime: Classify the backdrop as trending, range-bound/choppy, high-volatility risk-off, low-volatility accumulation, or unclear. Explain which strategies are favored or penalized by that regime.
+
+- Select indicators that provide diverse and complementary information. Avoid redundancy (e.g., do not select both rsi and stochrsi). Also briefly explain why they are suitable for the given market context. When you tool call, please use the exact name of the indicators provided above as they are defined parameters, otherwise your call will fail. Please call get_stock_data first for the target instrument, and call get_stock_data for SPY over the same date range when relative strength or broad-market regime could affect the trade. Then use get_indicators with the specific indicator names. Write a very detailed and nuanced report of the trends you observe. Explicitly evaluate whether the setup is better explained by trend continuation, mean reversion, breakout/volatility expansion, relative strength, defensive/regime-aware positioning, or no clean technical edge. Include the likely target/follow-through path, invalidation level, and whether the current regime supports or weakens the strategy. Provide specific, actionable insights with supporting evidence to help traders make informed decisions."""
             + """ Make sure to append a Markdown table at the end of the report to organize key points in the report, organized and easy to read."""
             + get_language_instruction()
         )

@@ -88,6 +88,15 @@ class ResearchPlan(BaseModel):
             "including position sizing guidance consistent with the rating."
         ),
     )
+    strategy_context: str = Field(
+        description=(
+            "State which strategy lens best fits the evidence: trend-following, "
+            "mean-reversion, breakout/volatility expansion, relative strength, "
+            "defensive/regime-aware positioning, or no clean technical setup. "
+            "Cite the key evidence, the expected target or follow-through path, "
+            "and the conditions that would invalidate the thesis."
+        ),
+    )
 
 
 def render_research_plan(plan: ResearchPlan) -> str:
@@ -98,6 +107,8 @@ def render_research_plan(plan: ResearchPlan) -> str:
         f"**Rationale**: {plan.rationale}",
         "",
         f"**Strategic Actions**: {plan.strategic_actions}",
+        "",
+        f"**Strategy Context**: {plan.strategy_context}",
     ])
 
 
@@ -136,6 +147,14 @@ class TraderProposal(BaseModel):
         default=None,
         description="Optional sizing guidance, e.g. '5% of portfolio'.",
     )
+    strategy_context: str = Field(
+        description=(
+            "Classify the transaction as trend-following, mean-reversion, "
+            "breakout/volatility expansion, relative strength, defensive/regime-aware, "
+            "or no-trade/unclear. Explain the expected path, sizing implications, "
+            "and technical invalidation level."
+        ),
+    )
 
 
 def render_trader_proposal(proposal: TraderProposal) -> str:
@@ -149,6 +168,8 @@ def render_trader_proposal(proposal: TraderProposal) -> str:
         f"**Action**: {proposal.action.value}",
         "",
         f"**Reasoning**: {proposal.reasoning}",
+        "",
+        f"**Strategy Context**: {proposal.strategy_context}",
     ]
     if proposal.entry_price is not None:
         parts.extend(["", f"**Entry Price**: {proposal.entry_price}"])
@@ -204,6 +225,15 @@ class PortfolioDecision(BaseModel):
         default=None,
         description="Optional recommended holding period, e.g. '3-6 months'.",
     )
+    strategy_context: str = Field(
+        description=(
+            "Summarize whether the approved portfolio stance is driven by "
+            "trend-following, mean-reversion, breakout/volatility expansion, "
+            "relative strength, defensive/regime-aware positioning, or no clean "
+            "technical edge, and name the main risk that would invalidate that "
+            "strategic framing."
+        ),
+    )
 
 
 def render_pm_decision(decision: PortfolioDecision) -> str:
@@ -220,6 +250,8 @@ def render_pm_decision(decision: PortfolioDecision) -> str:
         f"**Executive Summary**: {decision.executive_summary}",
         "",
         f"**Investment Thesis**: {decision.investment_thesis}",
+        "",
+        f"**Strategy Context**: {decision.strategy_context}",
     ]
     if decision.price_target is not None:
         parts.extend(["", f"**Price Target**: {decision.price_target}"])

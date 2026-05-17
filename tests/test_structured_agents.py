@@ -31,10 +31,15 @@ from tradingagents.agents.trader.trader import create_trader
 @pytest.mark.unit
 class TestRenderTraderProposal:
     def test_minimal_required_fields(self):
-        p = TraderProposal(action=TraderAction.HOLD, reasoning="Balanced setup; no edge.")
+        p = TraderProposal(
+            action=TraderAction.HOLD,
+            reasoning="Balanced setup; no edge.",
+            strategy_context="No clean technical setup; wait for a clearer edge.",
+        )
         md = render_trader_proposal(p)
         assert "**Action**: Hold" in md
         assert "**Reasoning**: Balanced setup; no edge." in md
+        assert "**Strategy Context**: No clean technical setup" in md
         # The trailing FINAL TRANSACTION PROPOSAL line is preserved for the
         # analyst stop-signal text and any external code that greps for it.
         assert "FINAL TRANSACTION PROPOSAL: **HOLD**" in md
@@ -46,6 +51,7 @@ class TestRenderTraderProposal:
             entry_price=189.5,
             stop_loss=178.0,
             position_sizing="6% of portfolio",
+            strategy_context="Trend-following setup with momentum confirmation.",
         )
         md = render_trader_proposal(p)
         assert "**Action**: Buy" in md
@@ -55,7 +61,11 @@ class TestRenderTraderProposal:
         assert "FINAL TRANSACTION PROPOSAL: **BUY**" in md
 
     def test_optional_fields_omitted_when_absent(self):
-        p = TraderProposal(action=TraderAction.SELL, reasoning="Guidance cut.")
+        p = TraderProposal(
+            action=TraderAction.SELL,
+            reasoning="Guidance cut.",
+            strategy_context="No mean-reversion support; bearish catalyst dominates.",
+        )
         md = render_trader_proposal(p)
         assert "Entry Price" not in md
         assert "Stop Loss" not in md
@@ -70,6 +80,7 @@ class TestRenderResearchPlan:
             recommendation=PortfolioRating.OVERWEIGHT,
             rationale="Bull case carried; tailwinds intact.",
             strategic_actions="Build position over two weeks; cap at 5%.",
+            strategy_context="Trend-following setup; invalidate on failed breakout.",
         )
         md = render_research_plan(p)
         assert "**Recommendation**: Overweight" in md
@@ -82,6 +93,7 @@ class TestRenderResearchPlan:
                 recommendation=rating,
                 rationale="r",
                 strategic_actions="s",
+                strategy_context="No clean technical setup.",
             )
             md = render_research_plan(p)
             assert f"**Recommendation**: {rating.value}" in md
@@ -107,6 +119,7 @@ def _structured_trader_llm(captured: dict, proposal: TraderProposal | None = Non
         proposal = TraderProposal(
             action=TraderAction.BUY,
             reasoning="Strong setup.",
+            strategy_context="Mean-reversion setup toward the middle Bollinger band.",
         )
     structured = MagicMock()
     structured.invoke.side_effect = lambda prompt: (
@@ -127,6 +140,7 @@ class TestTraderAgent:
             entry_price=189.5,
             stop_loss=178.0,
             position_sizing="6% of portfolio",
+            strategy_context="Trend-following setup with no exhaustion signal.",
         )
         llm = _structured_trader_llm(captured, proposal)
         trader = create_trader(llm)
@@ -185,6 +199,7 @@ def _structured_rm_llm(captured: dict, plan: ResearchPlan | None = None):
             recommendation=PortfolioRating.HOLD,
             rationale="Balanced view across both sides.",
             strategic_actions="Hold current position; reassess after earnings.",
+            strategy_context="No clean technical setup; evidence is balanced.",
         )
     structured = MagicMock()
     structured.invoke.side_effect = lambda prompt: (
@@ -203,6 +218,7 @@ class TestResearchManagerAgent:
             recommendation=PortfolioRating.OVERWEIGHT,
             rationale="Bull case is stronger; AI tailwind intact.",
             strategic_actions="Build position gradually over two weeks.",
+            strategy_context="Trend-following setup; invalidate on trend break.",
         )
         llm = _structured_rm_llm(captured, plan)
         rm = create_research_manager(llm)

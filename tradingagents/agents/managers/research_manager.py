@@ -34,6 +34,8 @@ def create_research_manager(llm):
 
 Commit to a clear stance whenever the debate's strongest arguments warrant one; reserve Hold for situations where the evidence on both sides is genuinely balanced.
 
+In the strategy context, explicitly classify the setup as trend-following, mean-reversion, breakout/volatility expansion, relative strength, defensive/regime-aware positioning, or no clean technical setup. Explain why that lens fits better than the alternatives, the expected target or follow-through path, and what would invalidate the thesis. Treat regime and relative-strength evidence as gating context: a strategy with poor regime fit or weak benchmark-relative behavior needs extra justification.
+
 ---
 
 **Debate History:**

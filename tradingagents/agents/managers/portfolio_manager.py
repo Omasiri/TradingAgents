@@ -61,7 +61,7 @@ def create_portfolio_manager(llm):
 
 ---
 
-Be decisive and ground every conclusion in specific evidence from the analysts.{get_language_instruction()}"""
+Be decisive and ground every conclusion in specific evidence from the analysts. In the strategy context, state whether the final stance depends on trend-following, mean-reversion, breakout/volatility expansion, relative strength, defensive/regime-aware positioning, or no clean technical edge. Name the target or follow-through path, the invalidating price/action, and whether the current market regime supports the position size.{get_language_instruction()}"""
 
         final_trade_decision = invoke_structured_or_freetext(
             structured_llm,
