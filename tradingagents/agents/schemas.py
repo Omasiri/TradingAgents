@@ -125,6 +125,15 @@ class ResearchPlan(BaseModel):
             "portfolio manager apply the actual position."
         ),
     )
+    strategy_context: str = Field(
+        description=(
+            "State which strategy lens best fits the evidence: trend-following, "
+            "mean-reversion, breakout/volatility expansion, relative strength, "
+            "defensive/regime-aware positioning, or no clean technical setup. "
+            "Cite the key evidence, the expected target or follow-through path, "
+            "and the conditions that would invalidate the thesis."
+        ),
+    )
 
 
 def render_research_plan(plan: ResearchPlan) -> str:
@@ -135,6 +144,8 @@ def render_research_plan(plan: ResearchPlan) -> str:
         f"**Rationale**: {plan.rationale}",
         "",
         f"**Strategic Actions**: {plan.strategic_actions}",
+        "",
+        f"**Strategy Context**: {plan.strategy_context}",
     ])
 
 
@@ -181,6 +192,14 @@ class TraderProposal(BaseModel):
         default=None,
         description="Optional sizing guidance, e.g. '5% of portfolio'.",
     )
+    strategy_context: str = Field(
+        description=(
+            "Classify the transaction as trend-following, mean-reversion, "
+            "breakout/volatility expansion, relative strength, defensive/regime-aware, "
+            "or no-trade/unclear. Explain the expected path, sizing implications, "
+            "and technical invalidation level."
+        ),
+    )
 
     @field_validator("entry_price", "stop_loss", mode="before")
     @classmethod
@@ -199,6 +218,8 @@ def render_trader_proposal(proposal: TraderProposal) -> str:
         f"**Action**: {proposal.action.value}",
         "",
         f"**Reasoning**: {proposal.reasoning}",
+        "",
+        f"**Strategy Context**: {proposal.strategy_context}",
     ]
     # Named even when absent, so a reader can tell a level the trader chose not
     # to give from one the schema never asked for.
@@ -258,6 +279,15 @@ class PortfolioDecision(BaseModel):
         default=None,
         description="Optional recommended holding period, e.g. '3-6 months'.",
     )
+    strategy_context: str = Field(
+        description=(
+            "Summarize whether the approved portfolio stance is driven by "
+            "trend-following, mean-reversion, breakout/volatility expansion, "
+            "relative strength, defensive/regime-aware positioning, or no clean "
+            "technical edge, and name the main risk that would invalidate that "
+            "strategic framing."
+        ),
+    )
 
     @field_validator("price_target", mode="before")
     @classmethod
@@ -279,6 +309,8 @@ def render_pm_decision(decision: PortfolioDecision) -> str:
         f"**Executive Summary**: {decision.executive_summary}",
         "",
         f"**Investment Thesis**: {decision.investment_thesis}",
+        "",
+        f"**Strategy Context**: {decision.strategy_context}",
     ]
     # Named even when absent: a missing line reads as a field nobody asked for,
     # so a reader cannot tell "no target" from "target not reported".

@@ -35,6 +35,8 @@ def create_research_manager(llm):
 
 The debate always contains conflicting arguments; deciding which side is stronger is the job, so conflict alone is not a reason to Hold. Commit to the side with the stronger case, sized by how decisively it wins. Choose Hold only when the evidence is still balanced after that weighing, or too thin to support a call; do not manufacture a direction to appear decisive. Weigh the bull and bear cases on their merits, independent of which side spoke first or last.
 
+In the strategy context, explicitly classify the setup as trend-following, mean-reversion, breakout/volatility expansion, relative strength, defensive/regime-aware positioning, or no clean technical setup. Explain why that lens fits better than the alternatives, the expected target or follow-through path, and what would invalidate the thesis. Treat regime and relative-strength evidence as gating context: a strategy with poor regime fit or weak benchmark-relative behavior needs extra justification.
+
 ---
 
 **Debate History:**
