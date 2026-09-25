@@ -96,57 +96,53 @@ _MINIMAX_MODELS: dict[str, list[ModelOption]] = {
 MODEL_OPTIONS: ProviderModeOptions = {
     "openai": {
         "quick": [
-            ("GPT-6 Luna - Fast, high-volume and cost-efficient", "gpt-6-luna"),
-            ("GPT-5.6 Luna - Previous-gen fast tier", "gpt-5.6-luna"),
-            ("GPT-5.6 Terra - Balances intelligence and cost", "gpt-5.6-terra"),
-            ("Custom model ID", "custom"),
+            ("GPT-6 Sol - Built for complex coding and agentic workflows ($2/$10 per 1M)", "gpt-6-sol"),
+            ("GPT-6 Luna - Most efficient, high-volume tasks ($0.10/$0.50 per 1M)", "gpt-6-luna"),
+            ("GPT-6 Astra - Most capable flagship for the hardest work ($10/$50 per 1M)", "gpt-6-astra"),
         ],
         "deep": [
-            ("GPT-6 Sol - Complex reasoning and analysis", "gpt-6-sol"),
-            ("GPT-6 Astra - Hardest multi-step reasoning", "gpt-6-astra"),
-            ("GPT-5.6 - Previous-gen reasoning (Sol)", "gpt-5.6"),
-            ("GPT-5.5 - Earlier frontier, 1M context", "gpt-5.5"),
-            ("Custom model ID", "custom"),
+            ("GPT-6 Astra - Most capable flagship for the hardest work ($10/$50 per 1M)", "gpt-6-astra"),
+            ("GPT-6 Sol - Built for complex coding and agentic workflows ($2/$10 per 1M)", "gpt-6-sol"),
+            ("GPT-6 Luna - Lowest-cost latest model, still supports reasoning ($0.10/$0.50 per 1M)", "gpt-6-luna"),
         ],
     },
     "anthropic": {
         "quick": [
             ("Claude Sonnet 5 - Best speed and intelligence balance", "claude-sonnet-5"),
-            ("Claude Haiku 4.5 - Fastest with near-frontier intelligence", "claude-haiku-4-5"),
-            ("Custom model ID", "custom"),
+            ("Claude Haiku 4.5 - Fastest current model", "claude-haiku-4-5"),
+            ("Claude Opus 5.5 - Strong all-around fallback when you want more depth", "claude-opus-5-5"),
         ],
         "deep": [
-            ("Claude Opus 5.5 - Frontier agentic and enterprise work", "claude-opus-5-5"),
-            ("Claude Fable 5.1 - Most capable, demanding long-horizon reasoning", "claude-fable-5-1"),
-            ("Claude Sonnet 5 - Near-frontier intelligence at Sonnet cost", "claude-sonnet-5"),
-            ("Custom model ID", "custom"),
+            ("Claude Fable 5.1 - Best for demanding reasoning and long-horizon agentic work", "claude-fable-5-1"),
+            ("Claude Opus 5.5 - Strong long-running coding and knowledge work model", "claude-opus-5-5"),
+            ("Claude Sonnet 5 - Best speed and intelligence balance", "claude-sonnet-5"),
+            ("Claude Haiku 4.5 - Fastest current model", "claude-haiku-4-5"),
         ],
     },
     "google": {
         "quick": [
-            ("Gemini 3.8 Flash - Most capable Flash", "gemini-3.8-flash"),
-            ("Gemini 3.5 Flash Lite - Fast and cost-efficient", "gemini-3.5-flash-lite"),
-            ("Gemini 3.1 Flash Lite - Most cost-efficient", "gemini-3.1-flash-lite"),
-            ("Custom model ID", "custom"),
+            ("Gemini 3.8 Flash - Current flagship Flash model", "gemini-3.8-flash"),
+            ("Gemini 3.7 Flash - Previous-generation Flash model for coding and agentic workflows", "gemini-3.7-flash"),
+            ("Gemini 3.5 Flash-Lite - Fastest low-cost current option", "gemini-3.5-flash-lite"),
+            ("Gemini 3.6 Flash - Balanced previous-generation Flash model", "gemini-3.6-flash"),
         ],
         "deep": [
-            ("Gemini 3.8 Flash - Most capable Flash, 1M context", "gemini-3.8-flash"),
-            ("Gemini 3.1 Pro - Reasoning-first, complex workflows (preview)", "gemini-3.1-pro-preview"),
-            ("Gemini 3.5 Flash - Previous Flash, strong agentic + coding", "gemini-3.5-flash"),
-            ("Custom model ID", "custom"),
+            ("Gemini 3.1 Pro - Reasoning-first, complex workflows", "gemini-3.1-pro-preview"),
+            ("Gemini 3.8 Flash - Current flagship Flash model", "gemini-3.8-flash"),
+            ("Gemini 2.5 Pro - Stable pro model", "gemini-2.5-pro"),
+            ("Gemini 3.7 Flash - Previous-generation Flash model for coding and agentic workflows", "gemini-3.7-flash"),
         ],
     },
     "xai": {
         "quick": [
-            ("Grok 4.6 - Latest flagship, fastest, 500K ctx", "grok-4.6"),
-            ("Grok Build 0.1 - Coding-specialized, 256K ctx", "grok-build-0.1"),
-            ("Custom model ID", "custom"),
+            ("Grok 4.7 - Current recommended model for code and chat", "grok-4.7"),
+            ("Grok 4.6 - Current-generation fallback", "grok-4.6"),
+            ("Grok 4.3 - Lower-cost fallback with 1M context", "grok-4.3"),
         ],
         "deep": [
-            ("Grok 4.6 - Latest flagship, 500K ctx", "grok-4.6"),
-            ("Grok 4.5 - Previous flagship, coding and agentic", "grok-4.5"),
-            ("Grok 4.3 - Older generation, 1M ctx", "grok-4.3"),
-            ("Custom model ID", "custom"),
+            ("Grok 4.7 - Current recommended model for code and chat", "grok-4.7"),
+            ("Grok 4.6 - Current-generation fallback", "grok-4.6"),
+            ("Grok 4.5 - Older premium fallback", "grok-4.5"),
         ],
     },
     # DeepSeek: the deepseek-chat / deepseek-reasoner aliases are deprecated
@@ -155,12 +151,13 @@ MODEL_OPTIONS: ProviderModeOptions = {
     # handles the reasoning_content round-trip).
     "deepseek": {
         "quick": [
-            ("DeepSeek Flash - V4.1 Flash, fast, 1M ctx", "deepseek-flash"),
+            ("DeepSeek Flash - Current fast model alias (served by DeepSeek-V4.1-Flash)", "deepseek-flash"),
+            ("DeepSeek V4 Pro - Latest flagship model", "deepseek-v4-pro"),
             ("Custom model ID", "custom"),
         ],
         "deep": [
-            ("DeepSeek V4 Pro - Flagship", "deepseek-v4-pro"),
-            ("DeepSeek Flash - V4.1 Flash, fast, 1M ctx", "deepseek-flash"),
+            ("DeepSeek V4 Pro - Latest flagship model", "deepseek-v4-pro"),
+            ("DeepSeek Flash - Current fast model alias (served by DeepSeek-V4.1-Flash)", "deepseek-flash"),
             ("Custom model ID", "custom"),
         ],
     },
